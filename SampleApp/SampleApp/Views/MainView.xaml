@@ -1,0 +1,30 @@
+﻿<mvvm:ViewBase
+    x:Class="SampleApp.Views.MainView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mvvm="clr-namespace:TinyMvvm.Forms;assembly=TinyMvvm.Forms"
+    xmlns:vm="clr-namespace:SampleApp.ViewModels"
+    x:TypeArguments="vm:MainViewModel">
+    <Grid>
+        <ActivityIndicator
+            HorizontalOptions="Center"
+            IsRunning="False"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Center" />
+        <CollectionView
+            x:Name="Names"
+            IsVisible="{Binding IsNotBusy}"
+            ItemsSource="{Binding Names}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ContentView Padding="10">
+                        <ContentView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference Names}, Path=BindingContext.Details}" CommandParameter="{Binding}" />
+                        </ContentView.GestureRecognizers>
+                        <Label Text="{Binding}" />
+                    </ContentView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</mvvm:ViewBase>
